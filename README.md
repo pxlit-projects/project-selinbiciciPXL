@@ -1,6 +1,6 @@
 # Fullstack Java Project
 
-## Firstname Lastname (Class)
+## Selin Bicici (3AON A)
 Change the name and Class in the title above
 
 ## Folder structure
