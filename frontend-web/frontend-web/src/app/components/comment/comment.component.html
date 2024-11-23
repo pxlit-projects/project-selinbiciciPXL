@@ -1,0 +1,17 @@
+<div *ngFor="let comment of comments">
+    <p>{{ comment.content }}</p>
+    <button (click)="editComment(comment.id, comment.content)">Edit</button>
+    <button (click)="deleteComment(comment.id)">Delete</button>
+  </div>
+  
+  <!-- Comment form -->
+  <div>
+    <textarea [(ngModel)]="newComment" placeholder="Add a comment"></textarea>
+    <button (click)="addComment()">Submit</button>
+  </div>
+  
+  <!-- Edit form -->
+  <div *ngIf="editCommentId !== null">
+    <textarea [(ngModel)]="editCommentContent"></textarea>
+    <button (click)="updateComment()">Save changes</button>
+  </div>

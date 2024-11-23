@@ -1,5 +1,4 @@
-package be.pxl.services.controller.dto;
-
+package be.pxl.services.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,15 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
+
+@Data //server leest data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostRequest {
-
-    private Long id;
-    private String title;
-    private String content;
+public class PostFilterRequest {
     private String author;
-    private LocalDateTime createdDate;
+    private String title;
+    private LocalDateTime creationDate;
 }

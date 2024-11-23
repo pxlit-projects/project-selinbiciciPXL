@@ -1,0 +1,13 @@
+<div *ngIf="post">
+    <h3>Review Post</h3>
+    <h4>{{ post?.title }}</h4>
+    <p>{{ post?.content }}</p>
+    <div>
+      <button (click)="approvePost(post?.id)">Approve</button>
+      <button (click)="rejectPost(post?.id)">Reject</button>
+    </div>
+    <div *ngIf="isRejection">
+        <textarea [(ngModel)]="rejectionComment" placeholder="Enter rejection comment"></textarea>
+        <button (click)="submitRejection(post?.id)">Submit Rejection</button>
+      </div>
+  </div>

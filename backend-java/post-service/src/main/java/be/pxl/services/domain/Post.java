@@ -1,4 +1,5 @@
 package be.pxl.services.domain;
+import be.pxl.services.domain.Comment;
 
 
 import jakarta.persistence.*;
@@ -8,12 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="post")
 @Data
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor //geen constuctor
 @AllArgsConstructor
 public class Post {
 
@@ -24,20 +26,28 @@ public class Post {
     private String content;
     private String author;
     private LocalDateTime createdDate;
+    @Enumerated(EnumType.STRING)
+    private PostStatus status;
+    @Column(nullable = true)
+    private String rejectionComment;  // Commentaar voor afwijzing
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;  // Reacties op de post
 
-    //Constructors
-    public Post() {}
-
-
-    public Post(String title, String content, String author, LocalDateTime createdDate) {
+    public Post(String title, String content, String author, LocalDateTime createdDate, PostStatus status, String rejectionComment) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.createdDate = createdDate;
+        this.status = status;
+        this.rejectionComment = rejectionComment;
+
     }
 
-    //GETTERS AND SETTERS
+    public Post(Long postId) {
+    }
+
+//GETTERS AND SETTERS
 
     public Long getId() {
         return id;
@@ -77,5 +87,29 @@ public class Post {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public PostStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PostStatus status) {
+        this.status = status;
+    }
+
+    public String getRejectionComment() {
+        return rejectionComment;
+    }
+
+    public void setRejectionComment(String rejectionComment) {
+        this.rejectionComment = rejectionComment;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
