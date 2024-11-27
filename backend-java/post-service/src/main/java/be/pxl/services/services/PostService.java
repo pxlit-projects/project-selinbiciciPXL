@@ -1,6 +1,7 @@
 package be.pxl.services.services;
 
-
+import be.pxl.services.client.ReviewClient;
+import be.pxl.services.controller.RejectRequest;
 import be.pxl.services.controller.dto.PostDTO;
 import be.pxl.services.controller.request.PostFilterRequest;
 import be.pxl.services.controller.request.PostRequest;
@@ -16,11 +17,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor //geen coonstuctor
+@RequiredArgsConstructor
 public class PostService implements IPostService {
 
     private final PostRepository postRepository;
+    private final ReviewClient reviewClient;
 
+    public Post
 
     // Create a new post and return the created post as a PostDTO
     @Override
@@ -34,7 +37,7 @@ public class PostService implements IPostService {
         post.setCreatedDate(LocalDateTime.now());
 
         Post savedPost = postRepository.save(post);
-        return new PostDTO(savedPost); //return as dto
+        return new PostDTO(savedPost); // Return as DTO
     }
 
     // Update an existing post and return the updated post as PostDTO
@@ -62,7 +65,7 @@ public class PostService implements IPostService {
                 .collect(Collectors.toList());
     }
 
-    // Publish a post and return the published post as a PostDTO
+    // Publish a post and request approval from ReviewService
     @Override
     public PostDTO publishPost(Long id) {
         Optional<Post> existingPost = postRepository.findById(id);
@@ -72,12 +75,13 @@ public class PostService implements IPostService {
         Post post = existingPost.get();
         post.setStatus(PostStatus.PUBLISHED);
 
+        // Save locally
         Post publishedPost = postRepository.save(post);
+
         return new PostDTO(publishedPost); // Return the published post as DTO
     }
 
-    //filter
-    // Methode voor het filteren van posts op basis van de request parameters
+    // Filter posts
     public List<Post> filterPosts(PostFilterRequest postFilterRequest) {
         String author = postFilterRequest.getAuthor();
         String title = postFilterRequest.getTitle();
@@ -106,4 +110,5 @@ public class PostService implements IPostService {
         Post savedPost = postRepository.save(post);
         return new PostDTO(savedPost);
     }
+
 }

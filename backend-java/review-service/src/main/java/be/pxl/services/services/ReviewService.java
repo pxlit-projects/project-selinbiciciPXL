@@ -15,12 +15,12 @@ public class ReviewService implements IReviewService{
 
     private final PostRepository postRepository;
 
-    // Bekijk ingediende post
+    // Haal een specifieke post op
     public Optional<Post> viewPost(Long postId) {
         return postRepository.findById(postId);
     }
 
-    // Goedkeuren van een post
+    // Keur een post goed
     public Post approvePost(Long postId) {
         Optional<Post> optionalPost = postRepository.findById(postId);
         if (optionalPost.isPresent()) {
@@ -32,7 +32,7 @@ public class ReviewService implements IReviewService{
         }
     }
 
-    // Afwijzen van een post met een opmerking
+    // Wijs een post af met een opmerking
     public Post rejectPost(Long postId, String comment) {
         Optional<Post> optionalPost = postRepository.findById(postId);
         if (optionalPost.isPresent()) {
@@ -45,11 +45,12 @@ public class ReviewService implements IReviewService{
         }
     }
 
-    // Optioneel: methoden voor het ophalen van goedgekeurde of afgewezen posts
+    // Haal alle goedgekeurde posts op
     public List<Post> getApprovedPosts() {
         return postRepository.findByStatus(PostStatus.PUBLISHED);
     }
 
+    // Haal alle afgewezen posts op
     public List<Post> getRejectedPosts() {
         return postRepository.findByStatus(PostStatus.REJECTED);
     }

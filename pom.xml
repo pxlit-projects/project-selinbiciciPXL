@@ -7,6 +7,7 @@
         <module>backend-java/post-service</module>
         <module>backend-java/review-service</module>
         <module>backend-java/comment-service</module>
+        <module>backend-java/notification-service</module>
 
     </modules>
     <parent>

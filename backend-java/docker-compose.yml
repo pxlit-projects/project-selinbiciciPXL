@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  post-service:
+    image: mysql:8.0
+    container_name: postservice_db
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: postservice_db
+      ports: "3306:3303"
+      command: --default-authentication-plugin=mysql_native_password
+      volumes:
+        -postservice_db_data:/var/lib/mysql
+
+
+  review-service:
+    image: mysql:8.0
+    container_name: reviewservice_db
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: reviewservice_db
+      ports: "3307:3303"
+      command: --default-authentication-plugin=mysql_native_password
+      volumes:
+        -reviewservice_db_data:/var/lib/mysql
+
+
+  comment-service:
+    image: mysql:8.0
+    container_name: commentservice_db
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: commentservice_db
+      ports: "3308:3303"
+      command: --default-authentication-plugin=mysql_native_password
+      volumes:
+        -commentservice_db_data:/var/lib/mysql
+
+
+volumes:
+  postservice_db_data:
+  reviewservice_db_data:
+  commentservice_db_data:
+
+
