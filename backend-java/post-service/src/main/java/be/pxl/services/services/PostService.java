@@ -8,7 +8,6 @@ import be.pxl.services.domain.PostStatus;
 import be.pxl.services.exception.ResourceNotFoundException;
 import be.pxl.services.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,14 +15,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PostService implements IPostService {
 
     private final PostRepository postRepository;
 
-    @Autowired
-    public PostService(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+
 
     // Create a new post
     @Override

@@ -1,4 +1,5 @@
 package be.pxl.services.domain;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name="post")
+@Table(name="posts")
 @Data
 @Builder
 @NoArgsConstructor //geen constuctor
@@ -22,7 +23,12 @@ public class Post {
     private String title;
     private String content;
     private String author; //userid
+    //@Column(name = "created_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdDate;
+
+   /* @Column(name = "updated_date")
+    private LocalDateTime updatedDate;*/
     @Enumerated(EnumType.STRING)
     private PostStatus status;
     /*@Column(nullable = true)

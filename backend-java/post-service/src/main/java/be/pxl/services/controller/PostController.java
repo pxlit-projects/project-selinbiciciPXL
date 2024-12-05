@@ -7,7 +7,9 @@ import be.pxl.services.controller.request.PostFilterRequest;
 import be.pxl.services.controller.request.PostRequest;
 import be.pxl.services.domain.Post;
 import be.pxl.services.services.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
 
+    @Autowired
     private PostService postService;
 
     //ENDPOINT POST
@@ -35,7 +38,8 @@ public class PostController {
     //US1,US2: create a new post
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDTO createPost(@RequestBody PostRequest postRequest){
+    public PostDTO createPost(@Valid @RequestBody PostRequest postRequest){
+        //log.info("Received request to create post: {}", postRequest);
         return postService.createPost(postRequest);
     }
 
@@ -67,7 +71,7 @@ public class PostController {
     }
 
     //US4: Retrieve all published posts
-    @GetMapping
+    @GetMapping("/published")
     public List<PostDTO> getPublishedPosts() {
         return postService.getPublishedPosts();
     }

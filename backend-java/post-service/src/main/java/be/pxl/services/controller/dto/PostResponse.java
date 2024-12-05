@@ -2,6 +2,7 @@ package be.pxl.services.controller.dto;
 
 
 import be.pxl.services.domain.PostStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class PostResponse {
     private String title;
     private String content;
     private String author; //userid
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdDate;
     @Enumerated(EnumType.STRING)
     private PostStatus status;
