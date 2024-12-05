@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -14,6 +15,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PostFilterRequest {
     private String author;
-    private String title;
-    private LocalDateTime creationDate;
+    private String content;
+    private LocalDate creationDate;
 }

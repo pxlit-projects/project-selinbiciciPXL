@@ -5,17 +5,19 @@ import be.pxl.services.domain.PostStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
     List<Post> findByStatus(PostStatus status);
 
-    //filter userstory 5
-    List<Post> findByStatusAndAuthorContainingIgnoreCase(PostStatus status, String author);
-    List<Post> findByStatusAndTitleContainingIgnoreCase(PostStatus status, String title);
-    List<Post> findByStatusAndDate(PostStatus status, LocalDateTime creationDate);
+    // @Query("SELECT p FROM Post p WHERE " +
+// "(:content IS NULL OR p.content LIKE %:content%) AND " +
+// "(:author IS NULL OR p.author = :author) AND " +
+// "(:creationDate IS NULL OR FUNCTION('DATE', p.createdDate) = :creationDate)")
+// List<Post> filterPosts(@Param("content") String content,
+//                        @Param("author") String author,
+//                        @Param("creationDate") LocalDate creationDate);
 }
 

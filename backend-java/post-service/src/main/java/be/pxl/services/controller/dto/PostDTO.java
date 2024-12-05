@@ -1,5 +1,6 @@
 package be.pxl.services.controller.dto;
 
+
 import be.pxl.services.domain.Post;
 import be.pxl.services.domain.PostStatus;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+
 
 @Data
 @Builder
@@ -21,6 +23,8 @@ public class PostDTO {
     private String author;
     private LocalDateTime createdDate;
     private PostStatus status;
+  //  private List<Comment> comments;
+   // private List<Review> reviews;
 
     public PostDTO(Post post) {
         this.id = post.getId();
@@ -29,5 +33,7 @@ public class PostDTO {
         this.author = post.getAuthor();
         this.createdDate = post.getCreatedDate();
         this.status = post.getStatus();
+     //  this.comments = post.getComments();
+      //  this.reviews = post.getReviews();
     }
 }

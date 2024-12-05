@@ -1,23 +1,22 @@
-package be.pxl.services.domain;
-import jakarta.persistence.*;
+package be.pxl.services.controller.dto;
+
+
+import be.pxl.services.domain.PostStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Entity
-@Table(name="post")
+
 @Data
 @Builder
-@NoArgsConstructor //geen constuctor
+@NoArgsConstructor
 @AllArgsConstructor
-public class Post {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PostResponse {
     private Long id;
     private String title;
     private String content;
@@ -32,7 +31,5 @@ public class Post {
     private List<Comment> comments; // Reacties op de post
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Review> reviews;*/ //Beslissing op de post
-
-    //userid
+    private List<Review> reviews;*/
 }
