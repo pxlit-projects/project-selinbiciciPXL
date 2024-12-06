@@ -1,18 +1,35 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
-  imports: [],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  imports: [MatCardModule, MatInputModule, MatButtonModule, FormsModule, ReactiveFormsModule],
 })
 export class LoginComponent {
+  email = '';
+  password = '';
+  loginError = false;
+
   constructor(private authService: AuthService, private router: Router) {}
 
-  login(role: 'USER' | 'EDITOR'): void {
-    this.authService.login(role);
-    this.router.navigate(['/posts']);
+  onSubmit() {
+    const success = this.authService.login(this.email, this.password);
+    if (success) {
+      const role = this.authService.getRole();
+      if (role === 'redacteur') {
+        this.router.navigate(['/posts/new']);
+      } else if (role === 'gebruiker') {
+        this.router.navigate(['/posts/published']);
+      }
+    } else {
+      this.loginError = true;
+    }
   }
 }
+

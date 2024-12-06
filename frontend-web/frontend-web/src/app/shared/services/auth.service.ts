@@ -1,34 +1,41 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private userRole: 'EDITOR' | 'USER' = 'USER';
+  private loggedIn = false;
+  private userRole: 'redacteur' | 'gebruiker' | null = null;
 
-  login(role: 'EDITOR' | 'USER'): void {
-    this.userRole = role;
-  }
+  constructor(private router: Router) {}
 
-  getRole(): 'EDITOR' | 'USER' {
-    return this.userRole;
-  }
-
-  isEditor(): boolean {
-    return this.userRole === 'EDITOR';
-  }
-
-   // Laad rol bij init
-   loadRoleFromStorage(): void {
-    const role = localStorage.getItem('role');
-    if (role) {
-      this.userRole = role as 'EDITOR' | 'USER';
+  login(email: string, password: string): boolean {
+    // Dummy logic for login, replace with actual API call
+    if (email === 'redacteur@example.com' && password === 'password') {
+      this.loggedIn = true;
+      this.userRole = 'redacteur';
+      return true;
+    } else if (email === 'gebruiker@example.com' && password === 'password') {
+      this.loggedIn = true;
+      this.userRole = 'gebruiker';
+      return true;
+    } else {
+      return false;
     }
   }
 
-  // Uitloggen
-  logout(): void {
-    this.userRole = 'USER';
-    localStorage.removeItem('role');
+  logout() {
+    this.loggedIn = false;
+    this.userRole = null;
+    this.router.navigate(['/auth/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.loggedIn;
+  }
+
+  getRole(): 'redacteur' | 'gebruiker' | null {
+    return this.userRole;
   }
 }

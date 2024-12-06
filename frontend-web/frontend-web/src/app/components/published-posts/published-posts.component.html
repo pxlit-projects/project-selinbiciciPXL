@@ -1,0 +1,6 @@
+<mat-card *ngFor="let post of posts">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <small>By {{ post.author }} on {{ post.createdAt }}</small>
+  </mat-card>
+  

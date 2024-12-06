@@ -3,20 +3,30 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post.model';
-import { PostRequest } from '../models/post-request.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  private apiUrl = environment.apiUrl + 'post/api/post';
+  private apiUrl = environment.apiUrl + '/api/posts';
 
   constructor(private http: HttpClient) {}
 
-  // USER STORY 1: Create a new post
-  createPost(postRequest: PostRequest): Observable<Post> {
-    return this.http.post<Post>(this.apiUrl, postRequest);
+  createPost(post: any): Observable<any> {
+    return this.http.post(this.apiUrl, post);
+  }
+
+  getPostById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  getPublishedPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.apiUrl}/published`);
+  }
+
+  editPost(id: number, post: any) {
+    return this.http.put(`${this.apiUrl}/${id}`, post);
   }
 
   

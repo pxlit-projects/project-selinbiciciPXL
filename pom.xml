@@ -24,6 +24,7 @@
     </developers>
     <modules>
         <module>backend-java/post-service</module>
+        <module>backend-java/config-service</module>
     </modules>
     <scm>
         <connection/>
