@@ -15,21 +15,8 @@ export class PostComponent implements OnInit {
   posts: Post[] = [];
 
   constructor(private postService: PostService, public authService: AuthService) {}
-
-
   ngOnInit(): void {
-    this.postService.getPublishedPosts().subscribe((data) => {
-      this.posts = data;
-    });
+    throw new Error('Method not implemented.');
   }
 
-  editPost(postId: number): void {
-    if (postId !== undefined) {
-      // Alleen doorgaan als postId gedefinieerd is
-      console.log('Edit Post', postId);
-      // Verwijs naar een bewerkingspagina of doe iets anders
-    } else {
-      console.warn('Invalid post ID');
-    }
-  }
 }

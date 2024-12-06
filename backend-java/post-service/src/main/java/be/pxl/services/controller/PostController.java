@@ -50,13 +50,6 @@ public class PostController {
         return postService.getAllPost();
     }
 
-    // USERSTORY 2
-    /*@PostMapping("/draft")
-    @ResponseStatus(HttpStatus.CREATED)
-    public PostDTO createDraftPost(@RequestBody PostRequest postRequest) {
-        return postService.createDraftPost(postRequest);
-    }*/
-
     //US3: Update a post
     @PutMapping("/{id}")
     public PostDTO editPost(@PathVariable Long id, @RequestBody PostRequest postRequest) {
@@ -77,11 +70,11 @@ public class PostController {
     }
 
     // US5: Filter posts based on content, author, or date
-    /*@GetMapping("/filter")
+    @GetMapping("/filter")
     public ResponseEntity<List<PostResponse>> filterPosts(@RequestBody PostFilterRequest filterRequest) {
         List<PostResponse> filteredPosts = postService.filterPosts(filterRequest);
         return ResponseEntity.ok(filteredPosts);
-    }*/
+    }
 
     //USERSTORY 4
     //gedeeltedelijke updates

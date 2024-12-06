@@ -2,6 +2,7 @@ package be.pxl.services.services;
 
 import be.pxl.services.controller.dto.PostDTO;
 import be.pxl.services.controller.dto.PostResponse;
+import be.pxl.services.controller.request.PostFilterRequest;
 import be.pxl.services.controller.request.PostRequest;
 import be.pxl.services.domain.Post;
 import be.pxl.services.domain.PostStatus;
@@ -104,8 +105,13 @@ public class PostService implements IPostService {
     }
 
     // US5: Filter posts based on content, author, or date
-    /*@Override
+    //filtert alleen op datum niet op tijd
+    @Override
     public List<PostResponse> filterPosts(PostFilterRequest postFilterRequest) {
+        //log.info("Filter parameters: content={}, author={}, creationDate={}",
+        //postFilterRequest.getContent(),
+                //postFilterRequest.getAuthor(),
+               // postFilterRequest.getCreationDate());
         String content = postFilterRequest.getContent();
         String author = postFilterRequest.getAuthor();
         LocalDate creationDate = postFilterRequest.getCreationDate();
@@ -118,7 +124,7 @@ public class PostService implements IPostService {
                 .map(this::mapToPostResponse)
                 .toList();
 
-    }*/
+    }
 
 
 }
