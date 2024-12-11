@@ -26,6 +26,7 @@
         <module>backend-java/post-service</module>
         <module>backend-java/config-service</module>
         <module>backend-java/discovery-service</module>
+        <module>backend-java/gateway-service</module>
     </modules>
     <scm>
         <connection/>
