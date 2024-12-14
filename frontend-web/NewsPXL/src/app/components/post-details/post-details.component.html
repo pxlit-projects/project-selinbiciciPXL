@@ -1,0 +1,17 @@
+<div *ngIf="post" class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg mt-8">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-4">{{ post.title }}</h2>
+    <div class="space-y-4">
+      <p><strong class="font-medium text-gray-700">Author:</strong> <span class="text-gray-900">{{ post.author }}</span></p>
+      <p><strong class="font-medium text-gray-700">Content:</strong> <span class="text-gray-900">{{ post.content }}</span></p>
+      <p><strong class="font-medium text-gray-700">Status:</strong> <span class="text-gray-900">{{ post.status }}</span></p>
+      <p><strong class="font-medium text-gray-700">Created:</strong> <span class="text-gray-900">{{ post.createdDate | date }}</span></p>
+    </div>
+
+     <!-- Voeg hier de Edit knop toe -->
+  <div class="mt-6 flex justify-end">
+    <a [routerLink]="['/edit', post.id]" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      Edit Post
+    </a>
+  </div>
+  </div>
+  

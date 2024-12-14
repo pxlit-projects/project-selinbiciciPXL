@@ -1,0 +1,45 @@
+<h2>Filter Posts</h2>
+<form (ngSubmit)="applyFilters()">
+  <label for="content">Content:</label>
+  <input
+    id="content"
+    [(ngModel)]="filterParams.content"
+    name="content"
+    placeholder="Search by content"
+  />
+
+  <label for="author">Author:</label>
+  <input
+    id="author"
+    [(ngModel)]="filterParams.author"
+    name="author"
+    placeholder="Search by author"
+  />
+
+  <label for="creationDate">Creation Date:</label>
+  <input
+    id="creationDate"
+    [(ngModel)]="filterParams.creationDate"
+    name="creationDate"
+    placeholder="YYYY-MM-DD"
+    type="date"
+  />
+
+  <button type="submit">Apply Filters</button>
+</form>
+
+<h3>Filtered Posts</h3>
+<div *ngIf="filteredPosts.length > 0; else noFilteredPosts">
+  <ul>
+    <li *ngFor="let post of filteredPosts">
+      <h4>{{ post.title }}</h4>
+      <p><strong>Author:</strong> {{ post.author }}</p>
+      <p><strong>Created Date:</strong> {{ post.createdDate }}</p>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noFilteredPosts>
+  <p>No posts match the filter criteria.</p>
+</ng-template>
+

@@ -1,28 +1,45 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserRequest } from '../../shared/models/userrequest.model';
-
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
-  standalone:false,
+  standalone:true,
+  imports:[CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup; // Formulier voor login
+  isLoading = false; // Voor het tonen van de laadstatus
 
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
-
-  constructor(private authService: AuthService, private router: Router) {
-    this.loginForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)])
-    });
-   }
-
+    ngOnInit(): void {
+      this.loginForm = this.fb.group({
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required]]
+      });
+    }
   
+    onSubmit(): void {
+      if (this.loginForm.invalid) {
+        return;
+      }
+  
+      const { username, password } = this.loginForm.value;
+      this.isLoading = true;
+  
+      if (this.authService.login({ username, password })) {
+        this.isLoading = false;
+        this.router.navigate(['/posts']); // Naar posts pagina na succesvol inloggen
+      } else {
+        this.isLoading = false;
+        alert('Inloggen mislukt! Controleer je gebruikersnaam en wachtwoord.');
+      }
+    }
+
 }
 
 

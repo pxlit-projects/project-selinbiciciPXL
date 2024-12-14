@@ -56,10 +56,10 @@ public class PostService implements IPostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post with ID " + id + " not found"));
 
-        post.setTitle(postRequest.getTitle());
+        //post.setTitle(postRequest.getTitle());
         post.setContent(postRequest.getContent());
-        post.setAuthor(postRequest.getAuthor());
-        post.setStatus(postRequest.getStatus());
+       // post.setAuthor(postRequest.getAuthor());
+        //post.setStatus(postRequest.getStatus());
 
         Post updatedPost = postRepository.save(post);
         return mapToPostDTO(updatedPost); // Return updated post as DTO
