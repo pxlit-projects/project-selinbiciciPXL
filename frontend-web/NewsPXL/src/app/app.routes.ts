@@ -14,7 +14,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   { path: 'posts', component: PostsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'details/:id', component: PostDetailsComponent, canActivate:[AuthguardService]},
+  { path: 'posts/:id', component: PostDetailsComponent, canActivate:[AuthguardService]},
   { path: 'create', component: CreatePostComponent, canActivate:[AuthguardService]},
   { path: 'edit/:id', component: EditPostComponent, canActivate:[AuthguardService]},
   { path: 'published', component: PublishedPostsComponent }, // Route voor getPublishedPosts

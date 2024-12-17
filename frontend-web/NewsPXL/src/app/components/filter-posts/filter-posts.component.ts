@@ -1,29 +1,29 @@
-import { Component } from '@angular/core';
-import { PostResponse } from '../../shared/models/postresponse.model';
-import { PostService } from '../../shared/services/post.service';
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Filter } from '../../shared/models/filter.model';
+
 
 @Component({
   selector: 'app-filter-posts',
   standalone: true,
- imports:[FormsModule,CommonModule],
+ imports:[FormsModule],
   templateUrl: './filter-posts.component.html',
   styleUrl: './filter-posts.component.css'
 })
 export class FilterPostsComponent {
-  filteredPosts: PostResponse[] = [];
-  filterParams = {
-    content: '',
-    author: '',
-    creationDate: '', // Format: 'YYYY-MM-DD'
-  };
 
-  constructor(private postService: PostService) {}
+  filter: Filter = { content: '', author: '', createdDate: '' };
 
-  applyFilters(): void {
-    this.postService.filterPosts(this.filterParams).subscribe((data) => {
-      this.filteredPosts = data; // Vul de gefilterde posts
-    });
+  // EventEmitter om filterwaarden door te geven
+  @Output() filterChanged = new EventEmitter<Filter>();
+
+  onSubmit(form: any) {
+    if (form.valid) {
+      console.log(this.filter.createdDate);
+      this.filterChanged.emit(this.filter);
+    
+    }
+     
   }
 }
+

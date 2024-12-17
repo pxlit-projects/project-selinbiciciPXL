@@ -104,7 +104,7 @@ public class PostService implements IPostService {
 
     // US5: Filter posts based on content, author, or date
     //filtert alleen op datum niet op tijd
-    @Override
+   /* @Override
     public List<PostResponse> filterPosts(PostFilterRequest postFilterRequest) {
         //log.info("Filter parameters: content={}, author={}, creationDate={}",
         //postFilterRequest.getContent(),
@@ -122,7 +122,7 @@ public class PostService implements IPostService {
                 .map(this::mapToPostResponse)
                 .toList();
 
-    }
+    }*/
 
 
 }

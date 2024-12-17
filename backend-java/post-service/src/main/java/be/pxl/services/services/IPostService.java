@@ -22,7 +22,7 @@ public interface IPostService {
     // Get all published posts and return them as a list of PostDTO
     List<PostDTO> getPublishedPosts();
 
-    List<PostResponse> filterPosts(PostFilterRequest postFilterRequest);
+    //List<PostResponse> filterPosts(PostFilterRequest postFilterRequest);
 
     // Publish a post and return the published post as a PostDTO
     //PostDTO publishPost(Long id);

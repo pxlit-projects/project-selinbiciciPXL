@@ -1,16 +1,19 @@
-<h2>Published Posts</h2>
+<h2 class="text-3xl font-bold text-gray-800 mb-6">Published Posts</h2>
+
 <div *ngIf="publishedPosts.length > 0; else noPosts">
-  <ul>
-    <li *ngFor="let post of publishedPosts">
-      <h3>{{ post.title }}</h3>
-      <p><strong>Author:</strong> {{ post.author }}</p>
-      <p><strong>Status:</strong> {{ post.status }}</p>
-      <p><strong>Created Date:</strong> {{ post.createdDate }}</p>
+  <ul class="space-y-6">
+    <li *ngFor="let post of publishedPosts" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+      <h3 class="text-xl font-semibold text-blue-600 hover:text-blue-800 mb-2">{{ post.title }}</h3>
+      <p class="text-gray-700"><strong>Author:</strong> <span class="text-gray-900">{{ post.author }}</span></p>
+      <p class="text-gray-700"><strong>Status:</strong> <span class="text-gray-900">{{ post.status }}</span></p>
+      <p class="text-gray-700"><strong>Created Date:</strong> <span class="text-gray-900">{{ post.createdDate }}</span></p>
     </li>
   </ul>
 </div>
 
 <ng-template #noPosts>
-  <p>No published posts available.</p>
+  <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+    <p class="text-gray-600 text-lg">No published posts available.</p>
+  </div>
 </ng-template>
 

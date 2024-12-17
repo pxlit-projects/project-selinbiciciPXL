@@ -56,7 +56,7 @@ export class EditPostComponent implements OnInit {
       next:() => {
         this.postForm.reset();
         // Na succesvolle wijziging navigeren we naar de detailpagina van de post
-        this.router.navigate(['/details/' + this.id]);
+        this.router.navigate(['/posts/' + this.id]);
       },
       error: (err) => {
         console.error('Fout bij het opslaan van de post:', err);

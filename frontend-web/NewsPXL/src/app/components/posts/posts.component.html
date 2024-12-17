@@ -1,9 +1,12 @@
-<h2 class="text-3xl font-semibold mb-6">All Posts</h2>
-<ul class="space-y-4">
-  <li *ngFor="let post of posts" class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200">
-    <a [routerLink]="['/posts', post.id]" class="text-lg font-medium text-blue-600 hover:text-blue-800">
-      {{ post.title }}
-    </a>
-  </li>
-</ul>
+<app-filter-posts (filterChanged)="handleFilter($event)"></app-filter-posts>
+
+<div>
+  <div>
+    @for(post of filteredData$ | async; track post.id){
+      <app-post-item [post]="post"></app-post-item>
+    }
+  </div>
+</div>
+
+
 

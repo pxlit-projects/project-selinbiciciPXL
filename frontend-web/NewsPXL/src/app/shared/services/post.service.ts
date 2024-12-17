@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { PostRequest } from '../models/postrequest.model';
 import { PostResponse } from '../models/postresponse.model';
 import { PostDTO } from '../models/postdto.model';
+import { Post } from '../models/post.model';
+import { Filter } from '../models/filter.model';
 
 
 @Injectable({
@@ -37,8 +39,52 @@ export class PostService {
     return this.http.get<PostDTO[]>(`${this.apiUrl}/published`);
   }
 
-  filterPosts(filterParams: { content?: string; author?: string; creationDate?: string }): Observable<PostResponse[]> {
-    return this.http.get<PostResponse[]>(`${this.apiUrl}/filter`, { params: filterParams });
+  filterPosts(filter: Filter): Observable<Post[]> {
+    return this.getAllPosts().pipe(
+      map((posts: Post[]) => posts.filter(post => this.isPostMatchingFilter(post, filter)))
+    );
   }
+
+  getPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(this.apiUrl);
+  }
+
+  public isPostMatchingFilter(post: Post, filter: Filter): boolean {
+
+    // Debugging: Log de huidige post en filter
+  console.log('Filtering Post:', post);
+  console.log('Filter:', filter);
+
+    // Check voor content
+  const matchesContent = filter.content 
+  ? (post.content ?? '').toLowerCase().includes(filter.content.toLowerCase()) 
+  : true;
+
+// Check voor author
+const matchesAuthor = filter.author 
+  ? (post.author ?? '').toLowerCase().includes(filter.author.toLowerCase()) 
+  : true;
+
+    // Check voor createdDate
+    const matchesCreatedAt = filter.createdDate == undefined 
+    ? true 
+    : this.checkDate(new Date(post.createdAt), new Date(filter.createdDate));
+
+  
+    return matchesContent && matchesAuthor && matchesCreatedAt;
+  }
+
+  public checkDate(postDate: Date, filterDate: Date) {
+    const matchesDay = postDate.getDay() == filterDate.getDay();
+    const matchesMonth = postDate.getMonth() == filterDate.getMonth();
+    const matchesYear = postDate.getFullYear() == filterDate.getFullYear();
+
+    return matchesDay && matchesMonth && matchesYear;
+    
+  }
+
+
+
+
 }
 

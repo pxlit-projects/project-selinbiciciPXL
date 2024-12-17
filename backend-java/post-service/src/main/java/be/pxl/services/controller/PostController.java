@@ -70,11 +70,11 @@ public class PostController {
     }
 
     // US5: Filter posts based on content, author, or date
-    @GetMapping("/filter")
+    /*@GetMapping("/filter")
     public ResponseEntity<List<PostResponse>> filterPosts(@RequestBody PostFilterRequest filterRequest) {
         List<PostResponse> filteredPosts = postService.filterPosts(filterRequest);
         return ResponseEntity.ok(filteredPosts);
-    }
+    }*/
 
     //USERSTORY 4
     //gedeeltedelijke updates
