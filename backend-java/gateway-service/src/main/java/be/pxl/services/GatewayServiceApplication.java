@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 // We zullen het bestand gateway-service.yml maken en op de configuratieserver plaatsen met de routes
 // die zijn gedefinieerd voor onze voorbeeld microservices.
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080" })
 @SpringBootApplication
 @EnableDiscoveryClient
 public class GatewayServiceApplication
