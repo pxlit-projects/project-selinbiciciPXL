@@ -5,12 +5,12 @@ import { PostService } from '../../shared/services/post.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { PostDTO } from '../../shared/models/postdto.model';
-import { AsyncPipe, CommonModule, NgClass } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-post',
   standalone: true,
-  imports:[FormsModule,CommonModule, ReactiveFormsModule],
+  imports:[FormsModule,CommonModule, ReactiveFormsModule, AsyncPipe],
   templateUrl: './edit-post.component.html',
   styleUrl: './edit-post.component.css'
 })

@@ -2,10 +2,9 @@ import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { PostService } from '../../shared/services/post.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Post } from '../../shared/models/post.model';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { PostRequest } from '../../shared/models/postrequest.model';
-import { PostDTO } from '../../shared/models/postdto.model';
+
 
 @Component({
   selector: 'app-create-post',

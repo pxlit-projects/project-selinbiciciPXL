@@ -51,40 +51,34 @@ export class PostService {
 
   public isPostMatchingFilter(post: Post, filter: Filter): boolean {
 
-    // Debugging: Log de huidige post en filter
-  console.log('Filtering Post:', post);
-  console.log('Filter:', filter);
-
     // Check voor content
-  const matchesContent = filter.content 
-  ? (post.content ?? '').toLowerCase().includes(filter.content.toLowerCase()) 
-  : true;
+   const matchesContent = filter.content 
+    ? (post.content ?? '').toLowerCase().includes(filter.content.toLowerCase()) 
+    : true;
 
-// Check voor author
-const matchesAuthor = filter.author 
-  ? (post.author ?? '').toLowerCase().includes(filter.author.toLowerCase()) 
-  : true;
+    // Check voor author
+   const matchesAuthor = filter.author 
+    ? (post.author ?? '').toLowerCase().includes(filter.author.toLowerCase()) 
+    : true;
 
-    // Check voor createdDate
-    const matchesCreatedAt = filter.createdDate == undefined 
-    ? true 
-    : this.checkDate(new Date(post.createdAt), new Date(filter.createdDate));
+   const matchesCreatedAt = filter.createdDate === ""? true : this.checkDate(new Date(post.createdDate), new Date(filter.createdDate));
 
-  
+
     return matchesContent && matchesAuthor && matchesCreatedAt;
   }
 
-  public checkDate(postDate: Date, filterDate: Date) {
-    const matchesDay = postDate.getDay() == filterDate.getDay();
-    const matchesMonth = postDate.getMonth() == filterDate.getMonth();
-    const matchesYear = postDate.getFullYear() == filterDate.getFullYear();
-
+  public checkDate(postDate: Date, filterDate: Date): boolean {
+    
+    // Vergelijk dag, maand en jaar
+    const matchesDay = postDate.getDate() === filterDate.getDate();
+    const matchesMonth = postDate.getMonth() === filterDate.getMonth();
+    const matchesYear = postDate.getFullYear() === filterDate.getFullYear();
+  
+    // Retourneer het resultaat van de vergelijking
     return matchesDay && matchesMonth && matchesYear;
     
   }
 
-
-
-
+  
 }
 

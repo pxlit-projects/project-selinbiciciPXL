@@ -1,4 +1,7 @@
-<app-navbar></app-navbar>
+<div *ngIf="shouldShowNavbar()">
+    <app-navbar></app-navbar> <!-- Navbar component -->
+  </div>
+  
 
 <router-outlet></router-outlet>
 

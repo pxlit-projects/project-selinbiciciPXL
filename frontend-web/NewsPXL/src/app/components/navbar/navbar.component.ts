@@ -1,18 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports:[RouterLink],
+  imports:[RouterLink, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  showNavbar: boolean = true; // Standaard toont de navbar
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  
 
-  constructor(private authService: AuthService, private router: Router) {}
+  ngOnInit(): void {
+  
+  }
 
   onLogout(): void {
     this.authService.logout();

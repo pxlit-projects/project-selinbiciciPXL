@@ -1,5 +1,5 @@
 export interface Filter {
     content: string;
     author: string;
-    createdDate?: string;
+    createdDate: Date | string;
 }

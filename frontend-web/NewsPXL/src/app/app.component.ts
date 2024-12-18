@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
@@ -12,5 +12,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 })
 
 export class AppComponent {
+  public router =inject(Router);
   title = 'news-app';
+
+  shouldShowNavbar(): boolean {
+    // Verberg de navbar op specifieke routes
+    const hiddenRoutes = ['/pageNotAllowed', '/login'];
+    return !hiddenRoutes.includes(this.router.url);
+  }
 }

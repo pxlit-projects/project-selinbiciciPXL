@@ -19,7 +19,6 @@ export class FilterPostsComponent {
 
   onSubmit(form: any) {
     if (form.valid) {
-      console.log(this.filter.createdDate);
       this.filterChanged.emit(this.filter);
     
     }
