@@ -69,24 +69,12 @@ public class PostController {
         return postService.getPublishedPosts();
     }
 
-    // US5: Filter posts based on content, author, or date
-    /*@GetMapping("/filter")
-    public ResponseEntity<List<PostResponse>> filterPosts(@RequestBody PostFilterRequest filterRequest) {
-        List<PostResponse> filteredPosts = postService.filterPosts(filterRequest);
-        return ResponseEntity.ok(filteredPosts);
-    }*/
 
     //USERSTORY 4
     //gedeeltedelijke updates
     /*@PatchMapping("/{id}/publish")
     public PostDTO publishPost(@PathVariable Long id) {
         return postService.publishPost(id);
-    }*/
-
-    //USERSTORY 5
-  /*  @PostMapping("/filter")
-    public List<Post> filterPosts(@RequestBody PostFilterRequest postFilterRequest) {
-        return postService.filterPosts(postFilterRequest);
     }*/
 
     //userstory7

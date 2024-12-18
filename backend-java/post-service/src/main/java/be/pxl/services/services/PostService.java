@@ -102,27 +102,5 @@ public class PostService implements IPostService {
                 .toList();
     }
 
-    // US5: Filter posts based on content, author, or date
-    //filtert alleen op datum niet op tijd
-   /* @Override
-    public List<PostResponse> filterPosts(PostFilterRequest postFilterRequest) {
-        //log.info("Filter parameters: content={}, author={}, creationDate={}",
-        //postFilterRequest.getContent(),
-                //postFilterRequest.getAuthor(),
-               // postFilterRequest.getCreationDate());
-        String content = postFilterRequest.getContent();
-        String author = postFilterRequest.getAuthor();
-        LocalDate creationDate = postFilterRequest.getCreationDate();
-
-        // Haal gefilterde posts op vanuit repository
-        List<Post> filteredPosts = postRepository.filterPosts(content, author, creationDate);
-
-        // Converteer naar PostResponse en retourneer
-        return filteredPosts.stream()
-                .map(this::mapToPostResponse)
-                .toList();
-
-    }*/
-
 
 }
