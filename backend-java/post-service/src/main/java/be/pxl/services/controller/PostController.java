@@ -38,9 +38,9 @@ public class PostController {
     //US1,US2: create a new post
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDTO createPost(@Valid @RequestBody PostRequest postRequest){
+    public PostDTO createPost(@Valid @RequestBody PostRequest postRequest, String userRole){
         //log.info("Received request to create post: {}", postRequest);
-        return postService.createPost(postRequest);
+        return postService.createPost(postRequest, userRole);
     }
 
     //US1: Retrieve all posts (including drafts)
@@ -52,8 +52,8 @@ public class PostController {
 
     //US3: Update a post
     @PutMapping("/{id}")
-    public PostDTO editPost(@PathVariable Long id, @RequestBody PostRequest postRequest) {
-        return postService.editPost(id, postRequest);
+    public PostDTO editPost(@PathVariable Long id, @RequestBody PostRequest postRequest, String userRole) {
+        return postService.editPost(id, postRequest, userRole);
     }
 
     //US3: Retrieve a post by ID
@@ -69,19 +69,41 @@ public class PostController {
         return postService.getPublishedPosts();
     }
 
+    //US4: Retrieve all published posts
+    @GetMapping("/submitted")
+    public List<PostDTO> getSubmittedPosts() {
+        return postService.getSubmittedPosts();
+    }
+
 
     //USERSTORY 4
     //gedeeltedelijke updates
-    /*@PatchMapping("/{id}/publish")
-    public PostDTO publishPost(@PathVariable Long id) {
-        return postService.publishPost(id);
-    }*/
+    @PostMapping("/{id}/publish")
+    @ResponseStatus(HttpStatus.OK)
+    public PostDTO publishPost(@PathVariable Long id, String userRole) {
+        return postService.publishPost(id, userRole);
+    }
 
     //userstory7
+    //Als redacteur wil ik ingediende posts kunnen bekijken en goedkeuren of afwijzen, zodat alleen goedgekeurde content wordt gepubliceerd.
     //get submitted
+    @PostMapping("/{id}/submit")
+    @ResponseStatus(HttpStatus.OK)
+    public PostDTO submitPost(@PathVariable Long id, @RequestHeader String userRole) {
+        return postService.submitPost(id, userRole);
+    }
+
 
     //userstory8
+    //Als redacteur wil ik een melding ontvangen wanneer een post goedgekeurd of afgewezen is,
+    // zodat ik weet of het gepubliceerd kan worden of moet worden herzien.
     //get findbyidwithreview
+
+    @GetMapping("/{id}/withreviews")
+    @ResponseStatus(HttpStatus.OK)
+    public PostResponse getPostByIdWithReviews(@PathVariable Long id) {
+        return postService.findPostByIdWithReviews(id);
+    }
 
    // userstory11
     //get findbyidwithcomments

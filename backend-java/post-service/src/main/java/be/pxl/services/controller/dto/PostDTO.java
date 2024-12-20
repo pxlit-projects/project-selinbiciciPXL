@@ -27,15 +27,4 @@ public class PostDTO {
     private PostStatus status;
   //  private List<Comment> comments;
    // private List<Review> reviews;
-
-    public PostDTO(Post post) {
-        this.id = post.getId();
-        this.title = post.getTitle();
-        this.content = post.getContent();
-        this.author = post.getAuthor();
-        this.createdDate = post.getCreatedDate();
-        this.status = post.getStatus();
-     //  this.comments = post.getComments();
-      //  this.reviews = post.getReviews();
-    }
 }

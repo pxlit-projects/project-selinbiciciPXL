@@ -27,6 +27,8 @@
         <module>backend-java/config-service</module>
         <module>backend-java/discovery-service</module>
         <module>backend-java/gateway-service</module>
+        <module>backend-java/review-service</module>
+
     </modules>
     <scm>
         <connection/>
@@ -58,7 +60,6 @@
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

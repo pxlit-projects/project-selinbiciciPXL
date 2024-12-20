@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -26,6 +27,7 @@ public class PostResponse {
     private LocalDateTime createdDate;
     @Enumerated(EnumType.STRING)
     private PostStatus status;
+    private List<ReviewResponse> reviews;
     /*@Column(nullable = true)
     private String rejectionComment;  // Commentaar voor afwijzing*/
 

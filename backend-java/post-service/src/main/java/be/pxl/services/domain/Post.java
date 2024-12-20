@@ -27,18 +27,22 @@ public class Post {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdDate;
 
-   /* @Column(name = "updated_date")
-    private LocalDateTime updatedDate;*/
+    /* @Column(name = "updated_date")
+     private LocalDateTime updatedDate;*/
     @Enumerated(EnumType.STRING)
     private PostStatus status;
+
+    @Transient
+    private List<Review> reviews; //beslissing op post
+}
+
+
     /*@Column(nullable = true)
     private String rejectionComment;  // Commentaar voor afwijzing*/
 
-   /* @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments; // Reacties op de post
+   /*@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;*/ // Reacties op de post
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Review> reviews;*/ //Beslissing op de post
+
 
     //userid
-}

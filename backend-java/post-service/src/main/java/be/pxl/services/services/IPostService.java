@@ -10,17 +10,24 @@ import java.util.List;
 
 public interface IPostService {
 
-    PostDTO createPost(PostRequest postRequest);
+    PostDTO createPost(PostRequest postRequest, String userRole);
 
     List<PostResponse> getAllPost();
 
     // Update an existing post and return the updated post as PostDTO
-    PostDTO editPost(Long id, PostRequest postRequest);
+    PostDTO editPost(Long id, PostRequest postRequest, String userRole);
 
     PostResponse getPostById(Long id);
 
     // Get all published posts and return them as a list of PostDTO
     List<PostDTO> getPublishedPosts();
 
+    PostResponse findPostByIdWithReviews(Long id);
+
+    PostDTO publishPost(Long id, String userRole);
+
+    PostDTO submitPost(Long id, String userRole);
+
+    List<PostDTO> getSubmittedPosts();
 
 }
