@@ -11,16 +11,18 @@ import { authGuard } from './shared/services/auth.guard';
 import { Routes } from '@angular/router';
 import { PageNotAllowedComponent } from './components/page-not-allowed/page-not-allowed.component';
 import { confirmLeaveGuard } from './shared/services/confirm-leave.guard';
+import { ReviewPostComponent } from './components/review-post/review-post.component';
 
 
 export const routes: Routes = [
   { path: 'posts', component: PostsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'posts/:id', component: PostDetailsComponent, canActivate:[authGuard]},
+  { path: 'posts/:id', component: PostDetailsComponent},
   { path: 'create', component: CreatePostComponent, canActivate:[authGuard], data: { role: 'editor' }, canDeactivate: [confirmLeaveGuard]},
   { path: 'edit/:id', component: EditPostComponent, canActivate:[authGuard], data: { role: 'editor' }, canDeactivate: [confirmLeaveGuard]},
   { path: 'published', component: PublishedPostsComponent}, // Route voor getPublishedPosts
-  { path: 'filter', component: FilterPostsComponent }, // Route voor filterPosts
+  { path: 'filter', component: FilterPostsComponent },
+  { path: 'submitted', component: ReviewPostComponent }, // Route voor filterPosts
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotAllowedComponent},
   { path: 'pageNotAllowed', component: PageNotAllowedComponent},

@@ -1,0 +1,38 @@
+<!-- review-posts.component.html -->
+<div class="post-container px-6 py-4">
+    <h2 class="text-2xl font-semibold mb-4">Ingediende Posts</h2>
+  
+    <div *ngIf="submittedPosts.length === 0" class="text-center">
+      <p class="text-gray-500">Er zijn geen ingediende posts om te bekijken.</p>
+    </div>
+  
+    <div *ngFor="let post of submittedPosts" class="post-item mb-4 p-4 border rounded-lg bg-white shadow-sm hover:shadow-lg transition-shadow">
+      <h3 class="text-xl font-medium text-gray-800 mb-2">{{ post.title }}</h3>
+      <p class="text-gray-600">{{ post.content }}</p>
+      <small class="block text-gray-500 mt-2">Auteur: {{ post.author }} | Status: {{ post.status }}</small>
+  
+         <!-- Direct de knoppen goedkeuren en afwijzen tonen -->
+    <div class="review-actions mt-4 flex gap-4">
+        <button (click)="approve(post.id)" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+          Goedkeuren
+        </button>
+        
+        <!-- Afwijzen knop toont invoerveld voor reden -->
+        <button (click)="toggleRejectReason(post.id)" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
+          Afwijzen
+        </button>
+      </div>
+  
+      <!-- Als de reden voor afwijzen wordt ingevoerd, tonen we het invoerveld -->
+      <div *ngIf="rejectingPostId === post.id" class="mt-4">
+        <label for="rejectReason" class="block text-gray-600">Geef een reden voor de afwijzing:</label>
+        <textarea id="rejectReason" [(ngModel)]="rejectReason" class="w-full mt-2 p-2 border rounded-lg" rows="4" placeholder="Reden voor afwijzing..."></textarea>
+        <button (click)="reject(post.id)" class="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+          Afwijzen met reden
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  
+  

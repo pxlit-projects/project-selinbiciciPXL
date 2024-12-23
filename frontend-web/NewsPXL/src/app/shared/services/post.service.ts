@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of, switchMap, take } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { PostRequest } from '../models/postrequest.model';
 import { PostResponse } from '../models/postresponse.model';
@@ -35,9 +35,25 @@ export class PostService {
     return this.http.put<PostDTO>(`${this.apiUrl}/${id}`, postRequest);
   }
 
+  submitPost(id: number, userRole: string): Observable<PostDTO> {
+    const headers = new HttpHeaders().set('userRole', userRole);
+    return this.http.post<PostDTO>(`${this.apiUrl}/${id}/submit`, {}, { headers });
+  }
+
+  publishPost(id: number, userRole: string): Observable<PostDTO> {
+    const headers = new HttpHeaders().set('userRole', userRole);
+    return this.http.post<PostDTO>(`${this.apiUrl}/${id}/publish`, {}, { headers } );
+  }
+
+
   getPublishedPosts(): Observable<PostDTO[]> {
     return this.http.get<PostDTO[]>(`${this.apiUrl}/published`);
   }
+
+  getSubmittedPosts(): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(`${this.apiUrl}/submitted`);
+  }
+  
 
   filterPosts(filter: Filter): Observable<Post[]> {
     return this.getAllPosts().pipe(

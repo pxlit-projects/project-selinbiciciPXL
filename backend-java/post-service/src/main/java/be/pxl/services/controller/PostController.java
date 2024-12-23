@@ -78,6 +78,7 @@ public class PostController {
 
     //USERSTORY 4
     //gedeeltedelijke updates
+    // Methode om een post te publiceren
     @PostMapping("/{id}/publish")
     @ResponseStatus(HttpStatus.OK)
     public PostDTO publishPost(@PathVariable Long id, String userRole) {
@@ -93,7 +94,7 @@ public class PostController {
         return postService.submitPost(id, userRole);
     }
 
-
+    
     //userstory8
     //Als redacteur wil ik een melding ontvangen wanneer een post goedgekeurd of afgewezen is,
     // zodat ik weet of het gepubliceerd kan worden of moet worden herzien.

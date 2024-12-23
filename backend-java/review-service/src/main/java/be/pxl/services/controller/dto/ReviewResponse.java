@@ -17,6 +17,6 @@ public class ReviewResponse {
     private Long postId;
     private String author;
     private String content;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
     private StatusType statusType;
 }

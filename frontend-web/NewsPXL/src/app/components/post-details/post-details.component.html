@@ -1,3 +1,4 @@
+<!-- Post Details -->
 <div *ngIf="post" class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg mt-8">
     <h2 class="text-3xl font-semibold text-gray-800 mb-4">{{ post.title }}</h2>
     <div class="space-y-4">
@@ -7,14 +8,23 @@
       <p><strong class="font-medium text-gray-700">Created:</strong> <span class="text-gray-900">{{ post.createdDate}}</span></p>
     </div>
 
-     <!-- Voeg hier de Edit knop toe -->
-   
+ <!-- Edit Button -->
 
   <div class="mt-6 flex justify-end">
     <a *ngIf="canEdit()" [routerLink]="['/edit', post.id]" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
       Edit Post
     </a>
-  </div>
+
+    @if(post.status === 'DRAFT'){
+   <!-- Submit Button -->
+   <button  *ngIf="canEdit()"  (click)="submitPost(post.id)" class="ml-4 inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+    Indienen
+  </button>
+}
+</div>
 
 </div>
+
+
+
   

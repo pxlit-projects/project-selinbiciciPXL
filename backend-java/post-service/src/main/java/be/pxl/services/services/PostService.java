@@ -136,7 +136,7 @@ public class PostService implements IPostService {
 
         // Controleer of de post is goedgekeurd en kan worden gepubliceerd
         if (post.getStatus() != PostStatus.SUBMITTED) {
-            throw new IllegalStateException("Post must be submitted before publishing");
+            throw new IllegalStateException("Post must be in 'SUBMITTED' status before publishing. Current status: " + post.getStatus());
         }
 
         // Zet de status van de post naar "PUBLISHED"
@@ -150,6 +150,7 @@ public class PostService implements IPostService {
 
     @Override
     public PostDTO submitPost(Long id, String userRole) {
+        logger.info("Submitting post with ID: {}", id);
         // Controleer of de gebruiker de juiste rol heeft voordat je verder gaat
         checkIfEditorRole(userRole);
 
