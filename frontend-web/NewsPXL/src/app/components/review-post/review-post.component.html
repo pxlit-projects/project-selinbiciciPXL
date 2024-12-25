@@ -13,26 +13,10 @@
   
          <!-- Direct de knoppen goedkeuren en afwijzen tonen -->
     <div class="review-actions mt-4 flex gap-4">
-        <button (click)="approve(post.id)" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
-          Goedkeuren
+        <button (click)="approvePost(post.id)" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+          Approve
         </button>
-        
-        <!-- Afwijzen knop toont invoerveld voor reden -->
-        <button (click)="toggleRejectReason(post.id)" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
-          Afwijzen
-        </button>
-      </div>
-  
-      <!-- Als de reden voor afwijzen wordt ingevoerd, tonen we het invoerveld -->
-      <div *ngIf="rejectingPostId === post.id" class="mt-4">
-        <label for="rejectReason" class="block text-gray-600">Geef een reden voor de afwijzing:</label>
-        <textarea id="rejectReason" [(ngModel)]="rejectReason" class="w-full mt-2 p-2 border rounded-lg" rows="4" placeholder="Reden voor afwijzing..."></textarea>
-        <button (click)="reject(post.id)" class="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-          Afwijzen met reden
-        </button>
-      </div>
-    </div>
-  </div>
+ 
   
   
   

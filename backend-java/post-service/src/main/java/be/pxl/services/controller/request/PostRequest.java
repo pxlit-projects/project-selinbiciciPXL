@@ -28,7 +28,6 @@ public class PostRequest {
     private String author;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
     private PostStatus status;
 
     //createdDate en updatedDate hoeven niet in de JSON te zitten omdat je die automatisch invult in de service.

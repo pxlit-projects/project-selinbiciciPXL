@@ -33,7 +33,7 @@ public class Post {
     private PostStatus status;
 
     @Transient
-    private List<Review> reviews; //beslissing op post
+    private Review reviews; //beslissing op post
 }
 
 

@@ -3,12 +3,13 @@ package be.pxl.services.controller;
 
 import be.pxl.services.controller.dto.PostDTO;
 import be.pxl.services.controller.dto.PostResponse;
-import be.pxl.services.controller.request.PostFilterRequest;
 import be.pxl.services.controller.request.PostRequest;
-import be.pxl.services.domain.Post;
+import be.pxl.services.domain.PostStatus;
 import be.pxl.services.services.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+    private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     //ENDPOINT POST
     //@PostMapping createPost US1 US2
@@ -38,8 +40,9 @@ public class PostController {
     //US1,US2: create a new post
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDTO createPost(@Valid @RequestBody PostRequest postRequest, String userRole){
-        //log.info("Received request to create post: {}", postRequest);
+    public PostDTO createPost(@Valid @RequestBody PostRequest postRequest, @RequestHeader("userRole") String userRole){
+        //logger.info("Received request to create post: {}", postRequest);
+
         return postService.createPost(postRequest, userRole);
     }
 
@@ -79,9 +82,12 @@ public class PostController {
     //USERSTORY 4
     //gedeeltedelijke updates
     // Methode om een post te publiceren
-    @PostMapping("/{id}/publish")
+    @PutMapping("/{id}/publish")
     @ResponseStatus(HttpStatus.OK)
-    public PostDTO publishPost(@PathVariable Long id, String userRole) {
+    public PostDTO publishPost(@PathVariable Long id, @RequestHeader("userRole") String userRole) {
+        // Log de binnenkomst van het verzoek
+        logger.info("Publish request ontvangen voor post met id: {} door gebruiker met rol: {}", id, userRole);
+
         return postService.publishPost(id, userRole);
     }
 
@@ -94,17 +100,40 @@ public class PostController {
         return postService.submitPost(id, userRole);
     }
 
-    
+    // Goedkeuren van een post
+    /*@PostMapping("/{id}/approve")
+    public String approvePost(@PathVariable("id") Long id) {
+        return postService.approvePost(id);
+    }*/
+
+    @PostMapping("/{id}/approve")
+    public ResponseEntity<PostRequest> approvePost(@PathVariable Long id , @RequestBody PostRequest postRequest) {
+        try {
+            postService.approvePost(id, postRequest);
+            return  ResponseEntity.ok(postRequest);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(postRequest);
+        }
+    }
+
+    @GetMapping("/approved")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PostDTO> getApprovedReviews() {
+        return postService.getApprovedPosts();
+    }
+
+
+
     //userstory8
     //Als redacteur wil ik een melding ontvangen wanneer een post goedgekeurd of afgewezen is,
     // zodat ik weet of het gepubliceerd kan worden of moet worden herzien.
     //get findbyidwithreview
 
-    @GetMapping("/{id}/withreviews")
+    /*@GetMapping("/{id}/withreviews")
     @ResponseStatus(HttpStatus.OK)
     public PostResponse getPostByIdWithReviews(@PathVariable Long id) {
         return postService.findPostByIdWithReviews(id);
-    }
+    }*/
 
    // userstory11
     //get findbyidwithcomments

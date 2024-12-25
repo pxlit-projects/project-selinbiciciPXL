@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Review } from '../models/review.model';
 import { ReviewResponse } from '../models/reviewresponse.model';
 import { ReviewRequest } from '../models/reviewrequest.model';
+import { PostRequest } from '../models/postrequest.model';
+import { PostDTO } from '../models/postdto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,26 +17,22 @@ export class ReviewService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Haalt reviews op basis van een post ID.
-   */
-  getReviewsByPostId(postId: number): Observable<ReviewResponse[]> {
-    return this.http.get<ReviewResponse[]>(`${this.apiUrl}/post/${postId}`);
-  }
 
-  /**
-   * Goedkeuren van een review.
-   */
-  approveReview(reviewRequest: ReviewRequest): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/approve`, reviewRequest);
-  }
 
-  /**
-   * Afwijzen van een review.
-   */
-  rejectReview(reviewRequest: ReviewRequest): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/reject`, reviewRequest);
-  }
+  
+
+    // Goedkeuren van een post
+    approvePost(id: number): Observable<PostRequest> {
+      return this.http.post<PostRequest>(`${this.apiUrl}/${id}/approve`, {});
+    }
+
+
+
+
+
+ 
+
+
 
 
 }

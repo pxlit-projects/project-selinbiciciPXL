@@ -1,6 +1,5 @@
 package be.pxl.services.controller.dto;
 
-import be.pxl.services.domain.StatusType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +16,6 @@ public class ReviewResponse {
     private Long postId;
     private String author;
     private String content;
-    private LocalDateTime createdDate;
-    private StatusType statusType;
+    private LocalDateTime createdAt;
+    private String statusType;
 }

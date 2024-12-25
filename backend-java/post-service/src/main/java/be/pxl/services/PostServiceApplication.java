@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
+
 /**
  * Hello world!
  *
@@ -12,7 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients // Zorgt ervoor dat Feign clients zoals ReviewClient worden ingeschakeld
+@EnableFeignClients
 public class PostServiceApplication
 {
     public static void main( String[] args )

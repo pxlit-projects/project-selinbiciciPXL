@@ -17,6 +17,7 @@ export class CreatePostComponent {
   postService: PostService = inject(PostService);
   router: Router = inject(Router);
   fb: FormBuilder = inject(FormBuilder);
+  userRole = 'editor';
   
 
   postForm:  FormGroup = this.fb.group({
@@ -31,7 +32,7 @@ export class CreatePostComponent {
     };
 
     // Verzenden naar de server via PostService
-    this.postService.createPost(newPost).subscribe(() => {
+    this.postService.createPost(newPost, this.userRole).subscribe(() => {
         this.postForm.reset();
         this.router.navigate(['/posts']);
       });

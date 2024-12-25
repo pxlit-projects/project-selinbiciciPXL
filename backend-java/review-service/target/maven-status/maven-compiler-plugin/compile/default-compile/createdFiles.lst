@@ -1,12 +1,8 @@
-be\pxl\services\controller\dto\ReviewRequest.class
+be\pxl\services\domain\PostStatus.class
+be\pxl\services\controller\dto\PostRequest.class
 be\pxl\services\controller\ReviewController.class
-be\pxl\services\repository\ReviewRepository.class
 be\pxl\services\services\ReviewService.class
-be\pxl\services\domain\Review.class
 be\pxl\services\ReviewServiceApplication.class
+be\pxl\services\client\PostClient.class
 be\pxl\services\services\IReviewService.class
-be\pxl\services\controller\dto\ReviewResponse.class
-be\pxl\services\domain\StatusType.class
-be\pxl\services\controller\dto\ReviewResponse$ReviewResponseBuilder.class
-be\pxl\services\controller\dto\ReviewRequest$ReviewRequestBuilder.class
-be\pxl\services\domain\Review$ReviewBuilder.class
+be\pxl\services\controller\dto\PostRequest$PostRequestBuilder.class

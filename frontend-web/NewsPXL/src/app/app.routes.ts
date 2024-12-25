@@ -12,6 +12,7 @@ import { Routes } from '@angular/router';
 import { PageNotAllowedComponent } from './components/page-not-allowed/page-not-allowed.component';
 import { confirmLeaveGuard } from './shared/services/confirm-leave.guard';
 import { ReviewPostComponent } from './components/review-post/review-post.component';
+import { ApprovedReviewComponent } from './components/approved-review/approved-review.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'create', component: CreatePostComponent, canActivate:[authGuard], data: { role: 'editor' }, canDeactivate: [confirmLeaveGuard]},
   { path: 'edit/:id', component: EditPostComponent, canActivate:[authGuard], data: { role: 'editor' }, canDeactivate: [confirmLeaveGuard]},
   { path: 'published', component: PublishedPostsComponent}, // Route voor getPublishedPosts
+  { path: 'approved-review', component: ApprovedReviewComponent}, 
   { path: 'filter', component: FilterPostsComponent },
   { path: 'submitted', component: ReviewPostComponent }, // Route voor filterPosts
   { path: '', redirectTo: '/login', pathMatch: 'full' },

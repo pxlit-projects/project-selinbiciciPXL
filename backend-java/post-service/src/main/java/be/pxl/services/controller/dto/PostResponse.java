@@ -27,7 +27,7 @@ public class PostResponse {
     private LocalDateTime createdDate;
     @Enumerated(EnumType.STRING)
     private PostStatus status;
-    private List<ReviewResponse> reviews;
+   // private List<ReviewResponse> reviews;
     /*@Column(nullable = true)
     private String rejectionComment;  // Commentaar voor afwijzing*/
 

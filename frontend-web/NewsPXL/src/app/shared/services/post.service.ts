@@ -27,22 +27,24 @@ export class PostService {
   }
 
   // Methode om een nieuwe post te maken
-  createPost(postRequest: PostRequest): Observable<PostDTO> {
-    return this.http.post<PostDTO>(`${this.apiUrl}`, postRequest);
+  createPost(postRequest: PostRequest, userRole: string ): Observable<PostDTO> {
+    const headers = new HttpHeaders().set('userRole', userRole).set('Content-Type', 'application/json');
+    return this.http.post<PostDTO>(`${this.apiUrl}`, postRequest, { headers });
   }
 
   editPost(id: number, postRequest: PostRequest): Observable<PostDTO> {
     return this.http.put<PostDTO>(`${this.apiUrl}/${id}`, postRequest);
   }
 
+
   submitPost(id: number, userRole: string): Observable<PostDTO> {
-    const headers = new HttpHeaders().set('userRole', userRole);
+    const headers = new HttpHeaders().set('userRole', userRole).set('Content-Type', 'application/json');
     return this.http.post<PostDTO>(`${this.apiUrl}/${id}/submit`, {}, { headers });
   }
 
   publishPost(id: number, userRole: string): Observable<PostDTO> {
-    const headers = new HttpHeaders().set('userRole', userRole);
-    return this.http.post<PostDTO>(`${this.apiUrl}/${id}/publish`, {}, { headers } );
+    const headers = new HttpHeaders().set('userRole', userRole).set('Content-Type', 'application/json');
+    return this.http.put<PostDTO>(`${this.apiUrl}/${id}/publish`, {}, { headers } );
   }
 
 
@@ -53,7 +55,12 @@ export class PostService {
   getSubmittedPosts(): Observable<PostDTO[]> {
     return this.http.get<PostDTO[]>(`${this.apiUrl}/submitted`);
   }
-  
+
+  getApprovedPosts(): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(`${this.apiUrl}/approved`);
+  }
+
+
 
   filterPosts(filter: Filter): Observable<Post[]> {
     return this.getAllPosts().pipe(

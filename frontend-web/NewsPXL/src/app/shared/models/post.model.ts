@@ -1,3 +1,4 @@
+
 export class Post{
     id?: number;
     title: string;
@@ -5,6 +6,7 @@ export class Post{
     createdDate: string;
     status: string;
     author: string;
+    
 
     constructor(title: string, content: string, createdDate:string, status: string, author: string){
         this.title = title;

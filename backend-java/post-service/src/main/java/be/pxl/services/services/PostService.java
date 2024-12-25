@@ -1,9 +1,7 @@
 package be.pxl.services.services;
 
-import be.pxl.services.client.ReviewClient;
 import be.pxl.services.controller.dto.PostDTO;
 import be.pxl.services.controller.dto.PostResponse;
-import be.pxl.services.controller.dto.ReviewResponse;
 import be.pxl.services.controller.request.PostRequest;
 import be.pxl.services.domain.Post;
 import be.pxl.services.domain.PostStatus;
@@ -15,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,11 +20,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService implements IPostService {
 
-    private final ReviewClient reviewClient;
 
     private final PostRepository postRepository;
     //Logback zal standaard berichten op debug level registreren.
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
+
 
 
     // Create a new post
@@ -110,7 +107,38 @@ public class PostService implements IPostService {
                 .toList();
     }
 
+
     @Override
+    public void approvePost(Long id, PostRequest postRequest) {
+        Post post = postRepository.getPostsById(postRequest.getId());
+        post.setStatus(PostStatus.APPROVED);
+        postRepository.save(post);
+        /*Post post = Post.builder()
+                .postId(reviewRequest.getPostId())
+                .author(reviewRequest.getAuthor())
+                .content(reviewRequest.getContent())
+                .statusType(StatusType.APPROVED)
+                .createdDate(LocalDateTime.now())
+                .build();*/
+
+
+        // Sla de review op in de database
+    }
+
+    @Override
+    public List<PostDTO> getApprovedPosts() {
+        return postRepository.findByStatus(PostStatus.APPROVED)
+                .stream()
+                .map(this:: mapToPostDTO)
+                .toList();
+    }
+
+
+
+
+
+
+/*@Override
     public PostResponse findPostByIdWithReviews(Long id) {
         //zoek post op id
         PostResponse postResponse = postRepository.findById(id)
@@ -122,7 +150,7 @@ public class PostService implements IPostService {
         postResponse.setReviews(reviews);
         return postResponse;
 
-    }
+    }*/
 
     @Override
     public PostDTO publishPost(Long id, String userRole) {
@@ -135,7 +163,7 @@ public class PostService implements IPostService {
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
 
         // Controleer of de post is goedgekeurd en kan worden gepubliceerd
-        if (post.getStatus() != PostStatus.SUBMITTED) {
+       if (post.getStatus() != PostStatus.APPROVED) {
             throw new IllegalStateException("Post must be in 'SUBMITTED' status before publishing. Current status: " + post.getStatus());
         }
 
@@ -169,23 +197,15 @@ public class PostService implements IPostService {
 
     }
 
+
+
     public void checkIfEditorRole(String userRole) {
         // Controleer of de gebruiker de juiste rol heeft
+        logger.info("userrole");
+        logger.info(userRole);
         if (!"editor".equalsIgnoreCase(userRole)) {
             throw new RuntimeException("You do not have permission to create a post.");
         }
-    }
-
-
-    private ReviewResponse mapToReviewResponse(Review review) {
-        return ReviewResponse.builder()
-                .Id(review.getId())
-                .postId(review.getPostId())
-                .content(review.getContent())
-                .statusType(review.getStatusType())
-                .createdAt(review.getCreatedAt())
-                .author(review.getAuthor())
-                .build();
     }
 
     // Map a Post to a PostResponse
@@ -213,5 +233,6 @@ public class PostService implements IPostService {
                 .status(post.getStatus())
                 .build();
     }
+
 
 }
