@@ -1,9 +1,9 @@
 export interface Review {
     id: number;
     postId: number;
-    content: string;
     author: string;
-    statusType: string;
-    createdAt: Date;
+    content: string;
+    statusReview: string | null;
+    createdDate: string;
     
   }

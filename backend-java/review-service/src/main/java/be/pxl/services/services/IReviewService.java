@@ -1,17 +1,17 @@
 package be.pxl.services.services;
 
-import be.pxl.services.controller.dto.PostRequest;
+import be.pxl.services.controller.dto.ReviewRequest;
 import be.pxl.services.controller.dto.ReviewResponse;
+import be.pxl.services.domain.Review;
 
 import java.util.List;
 
 public interface IReviewService{
-    //String approvePost(PostRequest postRequest);
 
-    //List<ReviewResponse> findReviewsByPostId(Long postId);
+    List<ReviewResponse> getReviewsByPostId(Long postId);
 
+    void approvePost(ReviewRequest reviewRequest);
 
-
-   // List<ReviewResponse> getApprovedReviews();
+    void rejectPost(ReviewRequest reviewRequest);
 
 }

@@ -5,6 +5,6 @@ export interface ReviewResponse{
     content: string;
     author: string;
     createdDate: Date;
-    statusType: string;
+    statusReview: string;
     userRole: string | null;
 }

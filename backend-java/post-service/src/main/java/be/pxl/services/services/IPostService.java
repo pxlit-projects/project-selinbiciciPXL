@@ -31,7 +31,9 @@ public interface IPostService {
     List<PostDTO> getSubmittedPosts();
 
 
-    void approvePost(Long id, PostRequest postRequest);
+    //void approvePost(Long id, PostRequest postRequest);
 
-    List<PostDTO> getApprovedPosts();
+    //List<PostDTO> getApprovedPosts();
+
+    PostResponse findPostByIdWithReviews(Long id);
 }

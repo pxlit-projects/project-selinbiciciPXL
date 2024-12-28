@@ -1,8 +1,7 @@
 package be.pxl.services.domain;
 
 
-public enum PostStatus {
-
+public enum ReviewStatus {
     APPROVED,
     REJECTED
 }

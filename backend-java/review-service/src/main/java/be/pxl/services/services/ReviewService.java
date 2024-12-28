@@ -3,99 +3,97 @@ package be.pxl.services.services;
 
 
 
-import be.pxl.services.controller.dto.PostRequest;
+import be.pxl.services.client.PostServiceClient;
+import be.pxl.services.controller.dto.ReviewRequest;
 import be.pxl.services.controller.dto.ReviewResponse;
-import be.pxl.services.domain.PostStatus;
+import be.pxl.services.domain.Post;
+import be.pxl.services.domain.Review;
+import be.pxl.services.domain.ReviewStatus;
+import be.pxl.services.repository.ReviewRepository;
+import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService implements IReviewService {
 
+    private final ReviewRepository reviewRepository;
+    private final PostServiceClient postServiceClient;
+    //logger
 
 
-     /*@Override
-    public void approve(ReviewRequest reviewRequest) {
-        Post post = postRepository.getReferenceById(reviewRequest.getPostId());
-        post.setStatus(PostStatus.APPROVED);
-        postRepository.save(post);
-        Review review = Review.builder()
-                .postId(reviewRequest.getPostId())
-                .author(reviewRequest.getAuthor())
-                .content(reviewRequest.getContent())
-                .statusType(StatusType.APPROVED)
-                .createdDate(LocalDateTime.now())
-                .build();
+    @Override
+    public List<ReviewResponse> getReviewsByPostId(Long postId) {
 
-        // Sla de review op in de database
-        reviewRepository.save(review);
-    }*/
+        getPostByIdFromClient(postId);
 
 
+        // Hier kan je eventueel de post-informatie loggen of verder verwerken
+        // logger.info("Fetched post: {}", post);
 
-
-
-
-   /* @Override
-    public List<ReviewResponse> findReviewsByPostId(Long postId) {
-
-
-        // Haal reviews op uit de database en converteer naar ReviewResponse
         return reviewRepository.findReviewByPostId(postId)
                 .stream()
                 .map(this::mapToReviewResponse)
                 .toList();
-    }*/
+    }
+
+    @Override
+    public void approvePost(ReviewRequest reviewRequest) {
+
+        getPostByIdFromClient(reviewRequest.getPostId());
+
+     
 
 
-
-    /*@Override
-    public List<ReviewResponse> getApprovedPosts() {
-        return reviewRepository.findByStatusType(PostStatus.APPROVED)
-                .stream()
-                .map(this:: mapToReviewResponse)
-                .toList();
-    }*/
-
-    /*private ReviewRequest mapToReviewRequest(Review review) {
-        return ReviewRequest.builder()
-                .author(review.getAuthor())
-                .content(review.getContent())
-                .postId(review.getPostId())
-                .build();
-    }*/
-
-   /* @Override
-    public void reject(ReviewRequest reviewRequest) {
+        //log
         Review review = Review.builder()
                 .postId(reviewRequest.getPostId())
-                .author(reviewRequest.getAuthor())
                 .content(reviewRequest.getContent())
-                .statusType(StatusType.REJECTED)
+                .author(reviewRequest.getAuthor())
                 .createdDate(LocalDateTime.now())
+                .reviewStatus(ReviewStatus.APPROVED)
                 .build();
 
-        // Sla de review op in de database
         reviewRepository.save(review);
 
-        // Voeg de reden en de opmerkingen toe (mogelijk in een logboek of database)
-       // post.setRejectionReason(reason);
-        //post.setRejectionComment(comment);
-    }*/
 
 
+    }
 
-    /*private ReviewResponse mapToReviewResponse(Review review) {
-        return ReviewResponse.builder()
-                .Id(review.getId())
-                .postId(review.getId())
-                .content(review.getContent())
-                .statusType(review.getStatusType())
-                .createdDate(review.getCreatedDate())
-                .author(review.getAuthor())
+    // Nieuwe methode om de postinformatie op te halen
+    private void getPostByIdFromClient(Long postId) {
+        postServiceClient.getPostById(postId.toString());
+    }
+
+    @Override
+    public void rejectPost(ReviewRequest reviewRequest) {
+
+        getPostByIdFromClient(reviewRequest.getPostId());
+
+        Review review = Review.builder()
+                .postId(reviewRequest.getPostId())
+                .content("")
+                .author(reviewRequest.getAuthor())
+                .createdDate(LocalDateTime.now())
+                .reviewStatus(ReviewStatus.REJECTED)
                 .build();
-    }*/
+
+        reviewRepository.save(review);
+
+    }
+
+    private ReviewResponse mapToReviewResponse(Review review) {
+        return ReviewResponse.builder()
+                .id(review.getId())
+                .postId(review.getPostId())
+                .author(review.getAuthor())
+                .content(review.getContent())
+                .createdDate(review.getCreatedDate())
+                .reviewStatus(review.getReviewStatus())
+                .build();
+    }
 }

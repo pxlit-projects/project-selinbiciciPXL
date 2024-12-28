@@ -27,6 +27,7 @@ export class EditPostComponent implements OnInit {
   postForm: FormGroup = this.fb.group({
     content: ['', Validators.required],
   })
+  
 
 
   ngOnInit(): void {

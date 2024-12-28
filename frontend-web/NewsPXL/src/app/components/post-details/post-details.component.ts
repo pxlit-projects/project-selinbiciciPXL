@@ -50,6 +50,8 @@ export class PostDetailsComponent implements OnInit {
       next: (post) => {
         this.selectedPost = post;
         alert(`Post ${post.title} is ingediend!`);
+        
+        //this.router.navigate(['/published'])
       },
       error: (err) => {
         alert('Er is iets misgegaan: ' + err.message);

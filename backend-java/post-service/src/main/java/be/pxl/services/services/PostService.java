@@ -1,7 +1,9 @@
 package be.pxl.services.services;
 
+import be.pxl.services.client.ReviewServiceClient;
 import be.pxl.services.controller.dto.PostDTO;
 import be.pxl.services.controller.dto.PostResponse;
+import be.pxl.services.controller.dto.ReviewResponse;
 import be.pxl.services.controller.request.PostRequest;
 import be.pxl.services.domain.Post;
 import be.pxl.services.domain.PostStatus;
@@ -24,6 +26,7 @@ public class PostService implements IPostService {
     private final PostRepository postRepository;
     //Logback zal standaard berichten op debug level registreren.
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
+    private final ReviewServiceClient reviewServiceClient;
 
 
 
@@ -108,49 +111,29 @@ public class PostService implements IPostService {
     }
 
 
-    @Override
-    public void approvePost(Long id, PostRequest postRequest) {
-        Post post = postRepository.getPostsById(postRequest.getId());
-        post.setStatus(PostStatus.APPROVED);
-        postRepository.save(post);
-        /*Post post = Post.builder()
-                .postId(reviewRequest.getPostId())
-                .author(reviewRequest.getAuthor())
-                .content(reviewRequest.getContent())
-                .statusType(StatusType.APPROVED)
-                .createdDate(LocalDateTime.now())
-                .build();*/
-
-
-        // Sla de review op in de database
-    }
-
-    @Override
+    /*@Override
     public List<PostDTO> getApprovedPosts() {
         return postRepository.findByStatus(PostStatus.APPROVED)
                 .stream()
                 .map(this:: mapToPostDTO)
                 .toList();
-    }
+    }*/
 
-
-
-
-
-
-/*@Override
+    @Override
     public PostResponse findPostByIdWithReviews(Long id) {
-        //zoek post op id
-        PostResponse postResponse = postRepository.findById(id)
-                .map(this::mapToPostResponse).orElseThrow(() -> new ResourceNotFoundException("Post with ID " + id + " not found"));
+        logger.info("Getting post with ID:" + id + "reviews");
+        PostResponse postResponse = postRepository.findById(id).map(this::mapToPostResponse).orElseThrow(() -> new ResourceNotFoundException("Post with ID " + id + " not found"));
 
-        List<ReviewResponse> reviews = reviewClient.getReviewsByPostId(id)
-                .stream().map(this::mapToReviewResponse).toList();
+        List<ReviewResponse> reviews = reviewServiceClient.getReviewsByPostId(id)
+                        .stream()
+                        .map(this::mapToReviewResponse)
+                        .toList();
 
         postResponse.setReviews(reviews);
         return postResponse;
+    }
 
-    }*/
+
 
     @Override
     public PostDTO publishPost(Long id, String userRole) {
@@ -162,8 +145,8 @@ public class PostService implements IPostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
 
-        // Controleer of de post is goedgekeurd en kan worden gepubliceerd
-       if (post.getStatus() != PostStatus.APPROVED) {
+
+       if (post.getStatus() != PostStatus.SUBMITTED) {
             throw new IllegalStateException("Post must be in 'SUBMITTED' status before publishing. Current status: " + post.getStatus());
         }
 
@@ -196,8 +179,6 @@ public class PostService implements IPostService {
 
 
     }
-
-
 
     public void checkIfEditorRole(String userRole) {
         // Controleer of de gebruiker de juiste rol heeft
@@ -233,6 +214,20 @@ public class PostService implements IPostService {
                 .status(post.getStatus())
                 .build();
     }
+
+    private ReviewResponse mapToReviewResponse(Review review) {
+        return ReviewResponse.builder()
+                .id(review.getId())
+                .postId(review.getPostId())
+                .author(review.getAuthor())
+                .content(review.getContent())
+                .createdDate(review.getCreatedDate())
+                .statusReview(review.getReviewStatus())
+                .build();
+    }
+
+
+
 
 
 }

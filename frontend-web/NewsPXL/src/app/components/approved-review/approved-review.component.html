@@ -3,7 +3,7 @@
     <div *ngFor="let review of approvedReviews" class="review-item mb-4 p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow">
       <p><strong class="font-medium text-gray-700">Author:</strong> <span class="text-gray-900">{{ review.author }}</span></p>
       <p><strong class="font-medium text-gray-700">Content:</strong> <span class="text-gray-900">{{ review.content}}</span></p>
-      <p><strong class="font-medium text-gray-700">Status:</strong> <span class="text-gray-900">{{ review.statusType }}</span></p>
+      <p><strong class="font-medium text-gray-700">Status:</strong> <span class="text-gray-900">{{ review.statusReview }}</span></p>
       <p><strong class="font-medium text-gray-700">Created:</strong> <span class="text-gray-900">{{ review.createdDate}}</span></p>
       
       <button (click)="publishReview(review.postId)" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">

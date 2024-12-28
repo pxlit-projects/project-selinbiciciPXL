@@ -4,6 +4,5 @@ public enum PostStatus {
     DRAFT, //concept
     PUBLISHED,
     SUBMITTED,
-    APPROVED,
-    REJECTED
+    APPROVED
 }

@@ -27,13 +27,11 @@ public class Post {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdDate;
 
-    /* @Column(name = "updated_date")
-     private LocalDateTime updatedDate;*/
     @Enumerated(EnumType.STRING)
     private PostStatus status;
 
     @Transient
-    private Review reviews; //beslissing op post
+    private List<Review> reviews; //beslissing op post
 }
 
 

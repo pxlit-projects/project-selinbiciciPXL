@@ -9,13 +9,19 @@
     <div *ngFor="let post of submittedPosts" class="post-item mb-4 p-4 border rounded-lg bg-white shadow-sm hover:shadow-lg transition-shadow">
       <h3 class="text-xl font-medium text-gray-800 mb-2">{{ post.title }}</h3>
       <p class="text-gray-600">{{ post.content }}</p>
-      <small class="block text-gray-500 mt-2">Auteur: {{ post.author }} | Status: {{ post.status }}</small>
+      <small *ngIf="post.status !== 'APPROVED'"  class="block text-gray-500 mt-2">Auteur: {{ post.author }} | Status: {{ post.status}}</small>
+      
   
          <!-- Direct de knoppen goedkeuren en afwijzen tonen -->
-    <div class="review-actions mt-4 flex gap-4">
-        <button (click)="approvePost(post.id)" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+    <div *ngIf="post.status !== 'APPROVED'"  class="review-actions mt-4 flex gap-4">
+        <button  (click)="approvePost(post.id, post.author)"  class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
           Approve
         </button>
+
+        <button (click)="onReject(post.id, post.author)" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+          Reject
+        </button>
+    </div>
  
   
   

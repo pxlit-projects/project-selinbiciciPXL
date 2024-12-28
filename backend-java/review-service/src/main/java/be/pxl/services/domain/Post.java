@@ -1,31 +1,30 @@
-package be.pxl.services.controller.dto;
+package be.pxl.services.domain;
 
 
-import be.pxl.services.domain.Post;
-import be.pxl.services.domain.PostStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDTO {
+public class Post {
 
     private Long id;
     private String title;
     private String content;
-    private String author;
+    private String author; //userid
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdDate;
-    private PostStatus status;
-  //  private List<Comment> comments;
-   // private List<Review> reviews;
+
+    @Enumerated(EnumType.STRING)
+    private String status;
 }

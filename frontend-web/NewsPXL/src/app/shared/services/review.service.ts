@@ -17,14 +17,26 @@ export class ReviewService {
 
   constructor(private http: HttpClient) {}
 
+  // Haal de reviews op voor een specifieke post
+  getReviewsByPostId(postId: number): Observable<ReviewResponse[]> {
+    return this.http.get<ReviewResponse[]>(`${this.apiUrl}/${postId}`);
+  }
+
+  approvePost(postId: number, author: string): Observable<any> {
+    const body = { postId, author};
+    return this.http.put(`${this.apiUrl}/approve`, body);
+  }
+
+  rejectPost(postId: number, author:string): Observable<any>{
+    const body = {postId, author};
+    return this.http.put(`${this.apiUrl}/reject`, body);
+  }
 
 
-  
 
-    // Goedkeuren van een post
-    approvePost(id: number): Observable<PostRequest> {
-      return this.http.post<PostRequest>(`${this.apiUrl}/${id}/approve`, {});
-    }
+
+
+
 
 
 

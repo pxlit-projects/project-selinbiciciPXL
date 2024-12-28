@@ -1,10 +1,13 @@
 package be.pxl.services.controller;
 
 
+import be.pxl.services.client.ReviewServiceClient;
 import be.pxl.services.controller.dto.PostDTO;
 import be.pxl.services.controller.dto.PostResponse;
 import be.pxl.services.controller.request.PostRequest;
+import be.pxl.services.domain.Post;
 import be.pxl.services.domain.PostStatus;
+import be.pxl.services.domain.Review;
 import be.pxl.services.services.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ public class PostController {
     @Autowired
     private PostService postService;
     private static final Logger logger = LoggerFactory.getLogger(PostController.class);
+
 
     //ENDPOINT POST
     //@PostMapping createPost US1 US2
@@ -100,40 +104,45 @@ public class PostController {
         return postService.submitPost(id, userRole);
     }
 
-    // Goedkeuren van een post
-    /*@PostMapping("/{id}/approve")
-    public String approvePost(@PathVariable("id") Long id) {
-        return postService.approvePost(id);
+
+   /* @GetMapping("/approved")
+    public ResponseEntity<List<PostDTO>> getApprovedPosts() {
+        List<PostDTO> approvedPosts = postService.getApprovedPosts();
+        return ResponseEntity.ok(approvedPosts);
     }*/
 
-    @PostMapping("/{id}/approve")
-    public ResponseEntity<PostRequest> approvePost(@PathVariable Long id , @RequestBody PostRequest postRequest) {
-        try {
-            postService.approvePost(id, postRequest);
-            return  ResponseEntity.ok(postRequest);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(postRequest);
-        }
-    }
+    //Haal een post op inclusief reviews:
+    //
+    //GET http://localhost:8081/api/posts/1/reviews
 
-    @GetMapping("/approved")
-    @ResponseStatus(HttpStatus.OK)
-    public List<PostDTO> getApprovedReviews() {
-        return postService.getApprovedPosts();
-    }
-
-
+   /* @GetMapping("/{id}/reviews")
+    public ResponseEntity<List<Review>> getReviewsForPost(@PathVariable Long id) {
+        return ResponseEntity.ok(postService.getReviewsForPost(id));
+    }*/
 
     //userstory8
     //Als redacteur wil ik een melding ontvangen wanneer een post goedgekeurd of afgewezen is,
     // zodat ik weet of het gepubliceerd kan worden of moet worden herzien.
     //get findbyidwithreview
 
-    /*@GetMapping("/{id}/withreviews")
+    @GetMapping("/{id}/with-reviews")
     @ResponseStatus(HttpStatus.OK)
     public PostResponse getPostByIdWithReviews(@PathVariable Long id) {
         return postService.findPostByIdWithReviews(id);
+    }
+
+
+
+    //Werk de status van een post bij:
+    //
+    //PUT http://localhost:8081/api/posts/1/status?status=APPROVED
+   /* @PutMapping("/{id}/status")
+    public ResponseEntity<Void> updatePostStatus(@PathVariable Long id, @RequestParam PostStatus status) {
+        postService.updatePostStatus(id, status);
+        return ResponseEntity.ok().build();
     }*/
+
+
 
    // userstory11
     //get findbyidwithcomments

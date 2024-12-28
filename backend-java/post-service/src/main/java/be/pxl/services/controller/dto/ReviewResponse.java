@@ -1,8 +1,6 @@
-package be.pxl.services.domain;
+package be.pxl.services.controller.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-import jakarta.ws.rs.core.Response;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +12,15 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class ReviewResponse {
+
     private Long id;
     private Long postId;
     private String author;
     private String content;
     private LocalDateTime createdDate;
-    //@Column(name = "status")
-    private String reviewStatus; // "APPROVED", "REJECTED"
+    private String statusReview;
+
+
 
 }

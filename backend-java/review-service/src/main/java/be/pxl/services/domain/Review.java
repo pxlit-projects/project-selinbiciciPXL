@@ -1,8 +1,8 @@
-package be.pxl.services.controller.dto;
+package be.pxl.services.domain;
 
 
-import be.pxl.services.domain.PostStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,21 +10,27 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data //server leest data
+@Entity
+@Table(name="review")
+@Data
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor //geen constuctor
 @AllArgsConstructor
-public class PostRequest {
+public class Review {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    private Long postId;
 
     private String content;
-
     private String author;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdDate;
-    private PostStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private ReviewStatus reviewStatus; // "APPROVED", "REJECTED"
+
+
 }

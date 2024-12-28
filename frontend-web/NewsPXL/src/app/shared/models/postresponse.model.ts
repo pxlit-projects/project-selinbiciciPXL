@@ -1,4 +1,5 @@
 import { Post } from "./post.model";
+import { Review } from "./review.model";
 
 
 export interface PostResponse extends Post {
@@ -8,4 +9,5 @@ export interface PostResponse extends Post {
     author: string;
     createdDate: string;
     status: string;
+    reviews: Review[];
   }

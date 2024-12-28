@@ -22,6 +22,7 @@ export class PostService {
     return this.http.get<PostResponse[]>(`${this.apiUrl}`);
   }
 
+  // Haal een post op op basis van ID
   getPostById(id: number): Observable<PostResponse> {
     return this.http.get<PostResponse>(`${this.apiUrl}/${id}`);
   }
@@ -60,7 +61,10 @@ export class PostService {
     return this.http.get<PostDTO[]>(`${this.apiUrl}/approved`);
   }
 
-
+   // Haal post met reviews op via id
+   getPostWithReviews(id: number): Observable<PostResponse> {
+    return this.http.get<PostResponse>(`${this.apiUrl}/${id}/with-reviews`);
+  }
 
   filterPosts(filter: Filter): Observable<Post[]> {
     return this.getAllPosts().pipe(
